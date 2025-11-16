@@ -1,0 +1,54 @@
+package utilidades.ManejadorLista;
+
+import Interfaces.arregloInterface.ArreglosInterface;
+import java.util.ArrayList;
+
+public class ManejadorLista<T> implements ArreglosInterface<T> {
+
+    private ArrayList<T> lista = new ArrayList<>();
+
+    @Override
+    public void agregar(T elemento) {
+        lista.add(elemento);
+    }
+
+    @Override
+    public boolean eliminar(int id) {
+        for (int i = 0; i < lista.size(); i++) {
+            T obj = lista.get(i);
+
+            try {
+                int value = (int) obj.getClass().getMethod("getId").invoke(obj);
+                if (value == id) {
+                    lista.remove(i);
+                    return true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public T buscarPorId(int id) {
+        for (T obj : lista) {
+            try {
+                int value = (int) obj.getClass().getMethod("getId").invoke(obj);
+                if (value == id) {
+                    return obj;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public T[] obtenerTodos() {
+        return (T[]) lista.toArray();
+    }
+}
