@@ -1,0 +1,2 @@
+Administrador,Ana,2,Sistemas
+Administrador,Luisa,5,RecursosHumanos
